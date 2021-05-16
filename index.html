@@ -69,6 +69,9 @@
                 barril1.position.x = 1
                 barril1.position.y = 0
                 barril1.position.z = 7
+                barril1.collisionsEnabled = true
+                barril1.checkCollisions = true
+                barril1.isPickable = true
             });
 
             BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
@@ -77,6 +80,9 @@
                 barril2.position.x = 10
                 barril2.position.y = 0.1
                 barril2.position.z = 15
+                barril2.collisionsEnabled = true
+                barril2.checkCollisions = true
+                barril2.isPickable = true
             });
 
             BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
@@ -85,6 +91,9 @@
                 barril3.position.x = -10
                 barril3.position.y = 0
                 barril3.position.z = 15
+                barril3.collisionsEnabled = true
+                barril3.checkCollisions = true
+                barril3.isPickable = true
             });
 
             BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
@@ -93,6 +102,9 @@
                 barril4.position.x = 36
                 barril4.position.y = 0.3
                 barril4.position.z = 25
+                barril4.collisionsEnabled = true
+                barril4.checkCollisions = true
+                barril4.isPickable = true
             });
 
             BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
@@ -101,6 +113,9 @@
                 barril5.position.x = -26
                 barril5.position.y = 0
                 barril5.position.z = 7
+                barril5.collisionsEnabled = true
+                barril5.checkCollisions = true
+                barril5.isPickable = true
             });
 
             BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
@@ -109,6 +124,9 @@
                 barril6.position.x = 21
                 barril6.position.y = 0
                 barril6.position.z = -7
+                barril6.collisionsEnabled = true
+                barril6.checkCollisions = true
+                barril6.isPickable = true
             });
 
             BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
@@ -117,6 +135,9 @@
                 barril7.position.x = -36
                 barril7.position.y = 0.2
                 barril7.position.z = 15
+                barril7.collisionsEnabled = true
+                barril7.checkCollisions = true
+                barril7.isPickable = true
             });
 
             BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
@@ -125,6 +146,9 @@
                 barril8.position.x = 30
                 barril8.position.y = 0.1
                 barril8.position.z = 1
+                barril8.collisionsEnabled = true
+                barril8.checkCollisions = true
+                barril8.isPickable = true
             });
 
             BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
@@ -133,6 +157,9 @@
                 barril9.position.x = -30
                 barril9.position.y = 0
                 barril9.position.z = 1
+                barril9.collisionsEnabled = true
+                barril9.checkCollisions = true
+                barril9.isPickable = true
             });
 
             BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
@@ -141,6 +168,9 @@
                 barril10.position.x = -40
                 barril10.position.y = 0.2
                 barril10.position.z = 10
+                barril10.collisionsEnabled = true
+                barril10.checkCollisions = true
+                barril10.isPickable = true
             });
 
             BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ufo.glb", scene, function (meshes) {
@@ -151,11 +181,11 @@
             });
 
             BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/Georgia-Tech-Dragon/", "dragon.glb", scene, function (meshes) {          
-                    let dragao = meshes[0]      
-                    dragao.scaling = new BABYLON.Vector3(3, 3, 3)
-                    dragao.position.z = 2
-                    dragao.position.y = 0.4 
-                    dragao.position.x = -25
+                let dragao = meshes[0]      
+                dragao.scaling = new BABYLON.Vector3(3, 3, 3)
+                dragao.position.z = 2
+                dragao.position.y = 0.4 
+                dragao.position.x = -25
             });
 
             BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "aerobatic_plane.glb", scene, function (meshes) {          
@@ -232,11 +262,6 @@
             
             const largeGround = BABYLON.MeshBuilder.CreateGroundFromHeightMap("largeGround", "https://assets.babylonjs.com/environments/villageheightmap.png", {width:150, height:150, subdivisions: 3, minHeight:0, maxHeight: 0});
             largeGround.material = largeGroundMat;
-
-            // const limite = BABYLON.MeshBuilder.CreateCylinder("limite", {height: 50, diameter: 50});
-            // limite.position.y = 0;
-            // limite.checkCollisions = true;
-            // limite.isPickable = false;
         
             // Keyboard events
             var inputMap = {};
@@ -249,8 +274,9 @@
             }));
 
             // Adicionado e aplicado colisão na câmera e no chão
-            scene.collisionsEnabled = true;
-            largeGround.checkCollisions = true;
+            scene.collisionsEnabled = false;
+            largeGround.checkCollisions = false;
+
 
             // Load hero character
             BABYLON.SceneLoader.ImportMesh("", "https://assets.babylonjs.com/meshes/", "HVGirl.glb", scene, function (newMeshes, particleSystems, skeletons, animationGroups) {
@@ -276,6 +302,7 @@
 
                 hero.collisionsEnabled = true;
                 hero.checkCollisions = true;
+                hero.isPickable = true
         
                 //Rendering loop (executed for everyframe)
                 scene.onBeforeRenderObservable.add(() => {
