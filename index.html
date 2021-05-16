@@ -63,6 +63,35 @@
             camera1.upperRadiusLimit = 10;
             camera1.wheelDeltaPercentage = 0.01;
         
+            var caixas = []
+            var x = 0
+            var y = 0
+            var z = 0
+
+            for(i=0; i<10; i++){
+                if(i%2 == 0){
+                    caixa = BABYLON.SceneLoader.ImportMesh("caixa", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, (meshes)  => {          
+                        this.barril = meshes[0];
+                        this.barril.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02);
+                        this.barril.position.x = x+i+2;
+                        this.barril.position.y = y+i+2;
+                        this.barril.position.z = z+i+2;
+                    })
+                } 
+                else {
+                    caixa = BABYLON.SceneLoader.ImportMesh("caixa", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, (meshes)  => {          
+                        this.barril = meshes[0];
+                        this.barril.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02);
+                        this.barril.position.x = -x+i+3;
+                        this.barril.position.y = -y+i+3;
+                        this.barril.position.z = -z+i+3;
+                    })
+                }
+
+                caixas[i] = caixa
+            }
+
+
             // Lights
             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
             light.intensity = 0.6;
@@ -75,8 +104,8 @@
             var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {size:1000}, scene);
             var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
             skyboxMaterial.backFaceCulling = false;
-            skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", scene);
-            skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.PROJECTION_MODE;
+            skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox4", scene);
+            skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
             skyboxMaterial.diffuseColor = BABYLON.Color3.Black()
             skyboxMaterial.specularColor = BABYLON.Color3.Black();
             skybox.material = skyboxMaterial;
@@ -94,16 +123,6 @@
             // Ground
             const largeGroundMat = new BABYLON.StandardMaterial("largeGroundMat");
             largeGroundMat.diffuseTexture = new BABYLON.Texture("https://assets.babylonjs.com/environments/valleygrass.png");
-
-            const wireMat = new BABYLON.StandardMaterial("wireMat");
-            wireMat.wireframe = true;
-<!--            wireMat.alpha = 0;-->
-
-            const hitBox = BABYLON.MeshBuilder.CreateBox("ground", {width: 150, height: 20, depth: 150});
-            hitBox.material = wireMat;
-            hitBox.position.x = 0;
-            hitBox.position.y = 15;
-            hitBox.position.z = 0;
             
             const largeGround = BABYLON.MeshBuilder.CreateGroundFromHeightMap("largeGround", "https://assets.babylonjs.com/environments/villageheightmap.png", {width:150, height:150, subdivisions: 3, minHeight:0, maxHeight: 10});
             largeGround.material = largeGroundMat;
