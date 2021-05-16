@@ -62,22 +62,86 @@
             camera1.lowerRadiusLimit = 2;
             camera1.upperRadiusLimit = 10;
             camera1.wheelDeltaPercentage = 0.01;
-        
-            var caixas = []
-            var x = 1
-            var y = 0.5
-            var z = 0
 
-            // for(i=0; i<10; i++){
-            //     BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
-                    // let barril = meshes[0]
-                    // barril.scaling = new Babylon.Vector3(0.002, 0.002, 0.002)
-                    // barril.position.x = 1
-                    // barril.position.y = 6 
-                    // barril.position.z = 7
-            //     });
-            //     caixas[i] = barril
-            // }
+            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
+                let barril1 = meshes[0]
+                barril1.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
+                barril1.position.x = 1
+                barril1.position.y = 0
+                barril1.position.z = 7
+            });
+
+            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
+                let barril2 = meshes[0]
+                barril2.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
+                barril2.position.x = 10
+                barril2.position.y = 0.1
+                barril2.position.z = 15
+            });
+
+            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
+                let barril3 = meshes[0]
+                barril3.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
+                barril3.position.x = -10
+                barril3.position.y = 0
+                barril3.position.z = 15
+            });
+
+            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
+                let barril4 = meshes[0]
+                barril4.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
+                barril4.position.x = 36
+                barril4.position.y = 0.3
+                barril4.position.z = 25
+            });
+
+            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
+                let barril5 = meshes[0]
+                barril5.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
+                barril5.position.x = -26
+                barril5.position.y = 0
+                barril5.position.z = 7
+            });
+
+            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
+                let barril6 = meshes[0]
+                barril6.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
+                barril6.position.x = 21
+                barril6.position.y = 0
+                barril6.position.z = -7
+            });
+
+            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
+                let barril7 = meshes[0]
+                barril7.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
+                barril7.position.x = -36
+                barril7.position.y = 0.2
+                barril7.position.z = 15
+            });
+
+            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
+                let barril8 = meshes[0]
+                barril8.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
+                barril8.position.x = 30
+                barril8.position.y = 0.1
+                barril8.position.z = 1
+            });
+
+            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
+                let barril9 = meshes[0]
+                barril9.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
+                barril9.position.x = -30
+                barril9.position.y = 0
+                barril9.position.z = 1
+            });
+
+            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
+                let barril10 = meshes[0]
+                barril10.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
+                barril10.position.x = -40
+                barril10.position.y = 0.2
+                barril10.position.z = 10
+            });
 
             BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ufo.glb", scene, function (meshes) {
                 let disco = meshes[0]
