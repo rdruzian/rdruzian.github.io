@@ -167,8 +167,8 @@
                 const idleAnim = scene.getAnimationGroupByName("Idle");
                 const sambaAnim = scene.getAnimationGroupByName("Samba");
 
-                hero.collisionsEnabled = false;
-                hero.checkCollisions = false;
+                hero.collisionsEnabled = true;
+                hero.checkCollisions = true;
         
                 //Rendering loop (executed for everyframe)
                 scene.onBeforeRenderObservable.add(() => {
