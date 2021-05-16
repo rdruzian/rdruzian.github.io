@@ -68,28 +68,71 @@
             var y = 0.5
             var z = 0
 
-            for(i=0; i<10; i++){
-                if(i%2 == 0){
-                    caixa = BABYLON.MeshBuilder.CreateBox("box"+i, {size: 0.5}, scene)
-                    caixa.position.x = x+i+0.01
-                    caixa.position.y = y
-                    caixa.position.z = z+1
-                    caixa.checkCollisions = true
-                    caixa.collisionsEnabled = true
-                } 
-                // else {
-                //     caixa = BABYLON.SceneLoader.ImportMesh("caixa", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, (meshes)  => {          
-                //         this.caixa = meshes[0];
-                //         this.caixa.scaling = new BABYLON.Vector3(0.2, 0.2, 0.2);
-                //         this.caixa.position.x = -x+i;
-                //         this.caixa.position.y = -y+i;
-                //         this.caixa.position.z = -z+i;
-                //     })
-                // }
-                //caixa.scaling.scaleInPlace(0.01) 
-                caixas[i] = caixa
-            }
+            // for(i=0; i<10; i++){
+            //     BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
+                    // let barril = meshes[0]
+                    // barril.scaling = new Babylon.Vector3(0.002, 0.002, 0.002)
+                    // barril.position.x = 1
+                    // barril.position.y = 6 
+                    // barril.position.z = 7
+            //     });
+            //     caixas[i] = barril
+            // }
 
+            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ufo.glb", scene, function (meshes) {
+                let disco = meshes[0]
+                disco.position.x = 1
+                disco.position.y = 3
+                disco.position.z = 25
+            });
+
+            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/Georgia-Tech-Dragon/", "dragon.glb", scene, function (meshes) {          
+                    let dragao = meshes[0]      
+                    dragao.scaling = new BABYLON.Vector3(3, 3, 3)
+                    dragao.position.z = 2
+                    dragao.position.y = 0.4 
+                    dragao.position.x = -25
+            });
+
+            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "aerobatic_plane.glb", scene, function (meshes) {          
+                let aviao = meshes[0]      
+                aviao.scaling = new BABYLON.Vector3(5, 5, 5)
+                aviao.position.z = 6
+                aviao.position.y = 4 
+                aviao.position.x = -10
+            });
+
+            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "haunted_house.glb", scene, function (meshes) {
+                let casa = meshes[0]      
+                casa.scaling = new BABYLON.Vector3(16, 16, 16)
+                casa.position.z = 25
+                casa.position.y = 0
+                casa.position.x = -20
+            })
+
+            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "flightHelmet.glb", scene, function (meshes) {
+                let capacete = meshes[0]      
+                capacete.scaling = new BABYLON.Vector3(0.1, 0.1, 0.1)
+                capacete.position.z = -25
+                capacete.position.y = 0
+                capacete.position.x = -25
+            })
+
+            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "alien.glb", scene, function (meshes) {
+                let bustoZombi = meshes[0]      
+                bustoZombi.scaling = new BABYLON.Vector3(2, 2, 2)
+                bustoZombi.position.z = 14
+                bustoZombi.position.y = 1.5
+                bustoZombi.position.x = 25
+            })
+
+            BABYLON.SceneLoader.ImportMesh("", "scenes/", "seagulf.glb", scene, function (meshes) {
+                let pato = meshes[0]      
+                pato.scaling = new BABYLON.Vector3(8, 8, 8)
+                pato.position.z = -10
+                pato.position.y = 0
+                pato.position.x = -36
+            })
 
             // Lights
             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
