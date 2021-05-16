@@ -71,20 +71,20 @@
             for(i=0; i<10; i++){
                 if(i%2 == 0){
                     caixa = BABYLON.SceneLoader.ImportMesh("caixa", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, (meshes)  => {          
-                        this.barril = meshes[0];
-                        this.barril.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02);
-                        this.barril.position.x = x+i+2;
-                        this.barril.position.y = y+i+2;
-                        this.barril.position.z = z+i+2;
+                        this.caixa = meshes[0];
+                        this.caixa.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02);
+                        this.caixa.position.x = x+i+2;
+                        this.caixa.position.y = y+i+2;
+                        this.caixa.position.z = z+i+2;
                     })
                 } 
                 else {
                     caixa = BABYLON.SceneLoader.ImportMesh("caixa", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, (meshes)  => {          
-                        this.barril = meshes[0];
-                        this.barril.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02);
-                        this.barril.position.x = -x+i+3;
-                        this.barril.position.y = -y+i+3;
-                        this.barril.position.z = -z+i+3;
+                        this.caixa = meshes[0];
+                        this.caixa.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02);
+                        this.caixa.position.x = -x+i+3;
+                        this.caixa.position.y = -y+i+3;
+                        this.caixa.position.z = -z+i+3;
                     })
                 }
 
