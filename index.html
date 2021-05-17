@@ -82,12 +82,12 @@
             var barril5 = Objetos(barrilExplosivo, 21, 0, -7, 0.02, 0.02, 0.02, hero)
             
             let disco = Objetos("ufo.glb", 1, 3, 25, null, null, null)
-            let dragao = Objetos("dragon.glb", 2, 0.4, -25, 3, 3, 3)
+            let dragao = Objetos("shark.glb", 2, 0.4, -25, 0.2, 0.2, 0.2)
             let aviao = Objetos("aerobatic_plane.glb", 6, 4, -10, 5, 5, 5)
             let casa = Objetos("haunted_house.glb", 25, 0, -20, 16, 16, 16)
             let capacete = Objetos("flightHelmet.glb", -25, 0, -25, 0.1, 0.1, 0.1)
             let bustoZumbi = Objetos("alien.glb", 14, 1.5, 25, 2, 2, 2)
-            let pato = Objetos("seagulf.glb", -10, 0, -36, 8, 8, 8)            
+            let pato = Objetos("seagulf.glb", -10, 1, -36, 0.001, 0.001, 0.001)            
 
             // Lights
             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
@@ -118,7 +118,7 @@
             advancedTexture.addControl(instructions);
 
             var OrdemObjetos = new BABYLON.GUI.TextBlock();
-            OrdemObjetos.text = "ORDEM PARA PEGAR OS ITENS \n1 - Disco \n2 - Dragão \n3 - Avião \n4 - Casa \n5 - Capacete \n6 - Busto Zumbi \n7 - Pato";
+            OrdemObjetos.text = "ORDEM PARA PEGAR OS ITENS \n1 - Disco \n2 - Tubarão \n3 - Avião \n4 - Casa \n5 - Capacete \n6 - Busto Zumbi \n7 - Pato";
             OrdemObjetos.color = "white";
             OrdemObjetos.fontSize = 16;
             OrdemObjetos.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT
