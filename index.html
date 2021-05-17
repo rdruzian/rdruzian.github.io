@@ -82,6 +82,8 @@
                     barril1.position.x = 10
                     barril1.position.y = 0.1
                     barril1.position.z = 15
+                    barril1.collisionsEnabled = true
+                    barril1.checkCollisions = true
                     if(hero.intersectsMesh(barril1, true)){
                         particleSystem.emitter = new Vector3(10, 1.1, 15)
                         explosao.play()
@@ -94,6 +96,8 @@
                     barril2.position.x = 10
                     barril2.position.y = 0
                     barril2.position.z = 15
+                    barril2.collisionsEnabled = true
+                    barril2.checkCollisions = true
                     if(hero.intersectsMesh(barril2, true)){
                         particleSystem.emitter = new Vector3(10, 1, 15)
                         explosao.play()
@@ -106,6 +110,8 @@
                     barril3.position.x = 36
                     barril3.position.y = 0.3
                     barril3.position.z = 25
+                    barril3.collisionsEnabled = true
+                    barril3.checkCollisions = true
                     if(hero.intersectsMesh(barril3, true)){
                         particleSystem.emitter = new Vector3(36, 1.3, 25)
                         explosao.play()
@@ -118,6 +124,8 @@
                     barril4.position.x = 26
                     barril4.position.y = 0
                     barril4.position.z = 7
+                    barril4.collisionsEnabled = true
+                    barril4.checkCollisions = true
                     if(hero.intersectsMesh(barril4, true)){
                         particleSystem.emitter = new Vector3(26, 1, 7)
                         explosao.play()
@@ -130,6 +138,8 @@
                     barril5.position.x = 21
                     barril5.position.y = 0
                     barril5.position.z = -7
+                    barril5.collisionsEnabled = true
+                    barril5.checkCollisions = true
                     if(hero.intersectsMesh(barril5, true)){
                         particleSystem.emitter = new Vector3(10, 1.1, 15)
                         explosao.play()
@@ -145,7 +155,7 @@
                         moeda.play()
                     }
                 })
-            let dragao = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "shark.glb", scene, function (meshes) {
+            let tubarao = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "shark.glb", scene, function (meshes) {
                     dragao = meshes[0]
                     dragao.scaling = new BABYLON.Vector3(0.2, 0.2, 0.2)
                     dragao.position.x = 2
@@ -205,6 +215,32 @@
                         moeda.play()
                     }
                 })          
+            
+            disco.collisionsEnabled = true
+            disco.checkCollisions = true
+
+            tubarao.collisionsEnabled = true
+            tubarao.checkCollisions = true
+
+            aviao.collisionsEnabled = true
+            aviao.checkCollisions = true
+
+            casa.collisionsEnabled = true
+            casa.checkCollisions = true
+
+            capacete.collisionsEnabled = true
+            capacete.checkCollisions = true
+
+            bustoZumbi.collisionsEnabled = true
+            bustoZumbi.checkCollisions = true
+
+            pato.collisionsEnabled = true
+            pato.checkCollisions = true            
+
+            const limite = BABYLON.MeshBuilder.CreateTorus("limite", {thickness: 10, diameter: 100});
+            limite.position.y = 1;
+            limite.collisionsEnabled= true
+            limite.checkCollisions = true;
 
             // Lights
             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
@@ -244,7 +280,7 @@
 
             // Ground
             const largeGroundMat = new BABYLON.StandardMaterial("largeGroundMat");
-            largeGroundMat.diffuseTexture = new BABYLON.Texture("https://assets.babylonjs.com/environments/valleygrass.png");
+            largeGroundMat.diffuseTexture = new BABYLON.Texture("textures/wood.jpg");
 
             const largeGround = BABYLON.MeshBuilder.CreateGroundFromHeightMap("largeGround", "textures/circulo.png", { width: 150, height: 150, subdivisions: 3, minHeight: 0, maxHeight: 0 });
             largeGround.material = largeGroundMat;
@@ -261,8 +297,8 @@
 
             // Adicionado e aplicado colisão na câmera e no chão
             scene.collisionsEnabled = false;
-            largeGround.checkCollisions = false;
-
+            largeGround.collisionsEnabled = true;
+            largeGround.checkCollisions = true;
 
             // Load hero character
             BABYLON.SceneLoader.ImportMesh("", "https://assets.babylonjs.com/meshes/", "HVGirl.glb", scene, function (newMeshes, particleSystems, skeletons, animationGroups) {
@@ -288,7 +324,6 @@
 
                 hero.collisionsEnabled = true;
                 hero.checkCollisions = true;
-                hero.isPickable = true
 
                 //Rendering loop (executed for everyframe)
                 scene.onBeforeRenderObservable.add(() => {
