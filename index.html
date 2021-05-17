@@ -74,22 +74,20 @@
             var explosao = new BABYLON.Sound("Explosao", "assets/explosao.wav", scene)
             
             const barrilExplosivo = "ExplodingBarrel.glb"
-            
-            var barril1 = Objetos(particleSystem, barrilExplosivo, explosao, 10, 0.1, 15, 0.02, 0.02, 0.02)
-            var barril2 = Objetos(particleSystem, barrilExplosivo, explosao, -10, 0, 15, 0.02, 0.02, 0.02)
-            var barril3 = Objetos(particleSystem, barrilExplosivo, explosao, 36, 0.3, 25, 0.02, 0.02, 0.02)
-            var barril4 = Objetos(particleSystem, barrilExplosivo, explosao, -26, 0, 7, 0.02, 0.02, 0.02)
-            var barril5 = Objetos(particleSystem, barrilExplosivo, explosao, 21, 0, -7, 0.02, 0.02, 0.02)
-            
-            let disco = Objetos(null, "ufo.glb", null, 1, 3, 25, null, null, null)
-            let dragao = Objetos(null, "dragon.glb", null, 2, 0.4, -25, 3, 3, 3)
-            let aviao = Objetos(null, "aerobatic_plane.glb", null, 6, 4, -10, 5, 5, 5)
-            let casa = Objetos(null, "haunted_house.glb", null, 25, 0, -20, 16, 16, 16)
-            let capacete = Objetos(null, "flightHelmet.glb", null, -25, 0, -25, 0.1, 0.1, 0.1)
-            let bustoZumbi = Objetos(null, "alien.glb", null, 14, 1.5, 25, 2, 2, 2)
-            let pato = Objetos(null, "seagulf.glb", null, -10, 0, -36, 8, 8, 8)
 
-
+            var barril1 = Objetos(barrilExplosivo, 10, 0.1, 15, 0.02, 0.02, 0.02, hero)
+            var barril2 = Objetos(barrilExplosivo, 10, 0, 15, 0.02, 0.02, 0.02, hero)
+            var barril3 = Objetos(barrilExplosivo, 36, 0.3, 25, 0.02, 0.02, 0.02, hero)
+            var barril4 = Objetos(barrilExplosivo, 26, 0, 7, 0.02, 0.02, 0.02, hero)
+            var barril5 = Objetos(barrilExplosivo, 21, 0, -7, 0.02, 0.02, 0.02, hero)
+            
+            let disco = Objetos("ufo.glb", 1, 3, 25, null, null, null)
+            let dragao = Objetos("dragon.glb", 2, 0.4, -25, 3, 3, 3)
+            let aviao = Objetos("aerobatic_plane.glb", 6, 4, -10, 5, 5, 5)
+            let casa = Objetos("haunted_house.glb", 25, 0, -20, 16, 16, 16)
+            let capacete = Objetos("flightHelmet.glb", -25, 0, -25, 0.1, 0.1, 0.1)
+            let bustoZumbi = Objetos("alien.glb", 14, 1.5, 25, 2, 2, 2)
+            let pato = Objetos("seagulf.glb", -10, 0, -36, 8, 8, 8)            
 
             // Lights
             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
@@ -118,6 +116,14 @@
             instructions.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT
             instructions.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
             advancedTexture.addControl(instructions);
+
+            var OrdemObjetos = new BABYLON.GUI.TextBlock();
+            OrdemObjetos.text = "ORDEM PARA PEGAR OS ITENS \n1 - Disco \n2 - Dragão \n3 - Avião \n4 - Casa \n5 - Capacete \n6 - Busto Zumbi \n7 - Pato";
+            OrdemObjetos.color = "white";
+            OrdemObjetos.fontSize = 16;
+            OrdemObjetos.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT
+            OrdemObjetos.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
+            advancedTexture.addControl(OrdemObjetos);
 
             // Ground
             const largeGroundMat = new BABYLON.StandardMaterial("largeGroundMat");
@@ -228,16 +234,22 @@
                 });
             });
 
-            function Objetos(particula, objeto, som, x, y, z, escalaX, escalaY, escalaZ) {
+            
+
+            function Objetos(objeto, x, y, z, escalaX, escalaY, escalaZ, hero) {
                 var item
                 if(objeto === "ExplodingBarrel.glb") {
                     item = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", objeto, scene, function (meshes) {
                         item = meshes[0]
-                        item.scaling = new BABYLON.Vector3(escalaX, escalaY, escalaZ)
-                        item.position.x = x
-                        item.position.y = y
-                        item.position.z = z
-                    });
+                            item.scaling = new BABYLON.Vector3(escalaX, escalaY, escalaZ)
+                            item.position.x = x
+                            item.position.y = y
+                            item.position.z = z
+                            // if(item.intersectsMesh(hero, true)){
+                            //     particula.emitter = item
+                            //     explosao.play()
+                            // }
+                        });
                 }
                 else {
                     if (escalaX == null && escalaY == null && escalaZ == null){
@@ -250,18 +262,19 @@
                     }
                     else {
                         item = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", objeto, scene, function (meshes) {
-                        item = meshes[0]
-                        item.scaling = new BABYLON.Vector3(escalaX, escalaY, escalaZ)
-                        item.position.x = x
-                        item.position.y = y
-                        item.position.z = z
-                    });
+                            item = meshes[0]
+                            item.scaling = new BABYLON.Vector3(escalaX, escalaY, escalaZ)
+                            item.position.x = x
+                            item.position.y = y
+                            item.position.z = z
+                        });
                     }
                 }
+                
                 item.collisionsEnabled = true
                 item.checkCollisions = true
                 item.isPickable = true
-                
+
                 return item
             }
 
