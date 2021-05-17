@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-        <title>Babylon.js sample code</title>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-        <!-- Babylon.js -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
-        <script src="https://preview.babylonjs.com/ammo.js"></script>
-        <script src="https://preview.babylonjs.com/cannon.js"></script>
-        <script src="https://preview.babylonjs.com/Oimo.js"></script>
-        <script src="https://preview.babylonjs.com/earcut.min.js"></script>
-        <script src="https://preview.babylonjs.com/babylon.js"></script>
-        <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
-        <script src="https://preview.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
-        <script src="https://preview.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
-        <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
-        <script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
-        <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
-        <script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
+    <title>Babylon.js sample code</title>
 
-        <style>
-            html, body {
-                overflow: hidden;
-                width: 100%;
-                height: 100%;
-                margin: 0;
-                padding: 0;
-            }
+    <!-- Babylon.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
+    <script src="https://preview.babylonjs.com/ammo.js"></script>
+    <script src="https://preview.babylonjs.com/cannon.js"></script>
+    <script src="https://preview.babylonjs.com/Oimo.js"></script>
+    <script src="https://preview.babylonjs.com/earcut.min.js"></script>
+    <script src="https://preview.babylonjs.com/babylon.js"></script>
+    <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+    <script src="https://preview.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
+    <script src="https://preview.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
+    <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+    <script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
+    <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
+    <script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
 
-            #renderCanvas {
-                width: 100%;
-                height: 100%;
-                touch-action: none;
-            }
-        </style>
-    </head>
+    <style>
+        html,
+        body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
+</head>
+
 <body>
     <canvas id="renderCanvas"></canvas>
     <script>
@@ -44,18 +47,19 @@
         var engine = null;
         var scene = null;
         var sceneToRender = null;
-        var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false}); };
-        
+        var createDefaultEngine = function () { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true, disableWebGL2Support: false }); };
+
         var createScene = function () {
-        
+
             // Low Poly Character with Blender Tutorial of Grant Abbitt: https://www.youtube.com/user/mediagabbitt
             // Character animations by Mixamo: https://www.mixamo.com/
-        
+
             engine.enableOfflineSupport = false;
-        
+
             // Scene and Camera
             var scene = new BABYLON.Scene(engine);
-        
+            var hero
+
             var camera1 = new BABYLON.ArcRotateCamera("camera1", Math.PI / 2, Math.PI / 4, 10, new BABYLON.Vector3(0, -5, 0), scene);
             scene.activeCamera = camera1;
             scene.activeCamera.attachControl(canvas, true);
@@ -63,181 +67,40 @@
             camera1.upperRadiusLimit = 10;
             camera1.wheelDeltaPercentage = 0.01;
 
-            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
-                let barril1 = meshes[0]
-                barril1.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
-                barril1.position.x = 1
-                barril1.position.y = 0
-                barril1.position.z = 7
-                barril1.collisionsEnabled = true
-                barril1.checkCollisions = true
-                barril1.isPickable = true
-            });
+            var particleSystem = new BABYLON.ParticleSystem("particles", 2000)
+            particleSystem.particleTexture = new BABYLON.Texture("textures/flare.png")
+            particleSystem.targetStopDuration = 2
 
-            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
-                let barril2 = meshes[0]
-                barril2.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
-                barril2.position.x = 10
-                barril2.position.y = 0.1
-                barril2.position.z = 15
-                barril2.collisionsEnabled = true
-                barril2.checkCollisions = true
-                barril2.isPickable = true
-            });
+            var explosao = new BABYLON.Sound("Explosao", "assets/explosao.wav", scene)
+            
+            const barrilExplosivo = "ExplodingBarrel.glb"
+            
+            var barril1 = Objetos(particleSystem, barrilExplosivo, explosao, 10, 0.1, 15, 0.02, 0.02, 0.02)
+            var barril2 = Objetos(particleSystem, barrilExplosivo, explosao, -10, 0, 15, 0.02, 0.02, 0.02)
+            var barril3 = Objetos(particleSystem, barrilExplosivo, explosao, 36, 0.3, 25, 0.02, 0.02, 0.02)
+            var barril4 = Objetos(particleSystem, barrilExplosivo, explosao, -26, 0, 7, 0.02, 0.02, 0.02)
+            var barril5 = Objetos(particleSystem, barrilExplosivo, explosao, 21, 0, -7, 0.02, 0.02, 0.02)
+            
+            let disco = Objetos(null, "ufo.glb", null, 1, 3, 25, null, null, null)
+            let dragao = Objetos(null, "dragon.glb", null, 2, 0.4, -25, 3, 3, 3)
+            let aviao = Objetos(null, "aerobatic_plane.glb", null, 6, 4, -10, 5, 5, 5)
+            let casa = Objetos(null, "haunted_house.glb", null, 25, 0, -20, 16, 16, 16)
+            let capacete = Objetos(null, "flightHelmet.glb", null, -25, 0, -25, 0.1, 0.1, 0.1)
+            let bustoZumbi = Objetos(null, "alien.glb", null, 14, 1.5, 25, 2, 2, 2)
+            let pato = Objetos(null, "seagulf.glb", null, -10, 0, -36, 8, 8, 8)
 
-            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
-                let barril3 = meshes[0]
-                barril3.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
-                barril3.position.x = -10
-                barril3.position.y = 0
-                barril3.position.z = 15
-                barril3.collisionsEnabled = true
-                barril3.checkCollisions = true
-                barril3.isPickable = true
-            });
 
-            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
-                let barril4 = meshes[0]
-                barril4.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
-                barril4.position.x = 36
-                barril4.position.y = 0.3
-                barril4.position.z = 25
-                barril4.collisionsEnabled = true
-                barril4.checkCollisions = true
-                barril4.isPickable = true
-            });
-
-            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
-                let barril5 = meshes[0]
-                barril5.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
-                barril5.position.x = -26
-                barril5.position.y = 0
-                barril5.position.z = 7
-                barril5.collisionsEnabled = true
-                barril5.checkCollisions = true
-                barril5.isPickable = true
-            });
-
-            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
-                let barril6 = meshes[0]
-                barril6.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
-                barril6.position.x = 21
-                barril6.position.y = 0
-                barril6.position.z = -7
-                barril6.collisionsEnabled = true
-                barril6.checkCollisions = true
-                barril6.isPickable = true
-            });
-
-            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
-                let barril7 = meshes[0]
-                barril7.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
-                barril7.position.x = -36
-                barril7.position.y = 0.2
-                barril7.position.z = 15
-                barril7.collisionsEnabled = true
-                barril7.checkCollisions = true
-                barril7.isPickable = true
-            });
-
-            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
-                let barril8 = meshes[0]
-                barril8.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
-                barril8.position.x = 30
-                barril8.position.y = 0.1
-                barril8.position.z = 1
-                barril8.collisionsEnabled = true
-                barril8.checkCollisions = true
-                barril8.isPickable = true
-            });
-
-            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
-                let barril9 = meshes[0]
-                barril9.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
-                barril9.position.x = -30
-                barril9.position.y = 0
-                barril9.position.z = 1
-                barril9.collisionsEnabled = true
-                barril9.checkCollisions = true
-                barril9.isPickable = true
-            });
-
-            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ExplodingBarrel.glb", scene, function (meshes) {
-                let barril10 = meshes[0]
-                barril10.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
-                barril10.position.x = -40
-                barril10.position.y = 0.2
-                barril10.position.z = 10
-                barril10.collisionsEnabled = true
-                barril10.checkCollisions = true
-                barril10.isPickable = true
-            });
-
-            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ufo.glb", scene, function (meshes) {
-                let disco = meshes[0]
-                disco.position.x = 1
-                disco.position.y = 3
-                disco.position.z = 25
-            });
-
-            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/Georgia-Tech-Dragon/", "dragon.glb", scene, function (meshes) {          
-                let dragao = meshes[0]      
-                dragao.scaling = new BABYLON.Vector3(3, 3, 3)
-                dragao.position.z = 2
-                dragao.position.y = 0.4 
-                dragao.position.x = -25
-            });
-
-            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "aerobatic_plane.glb", scene, function (meshes) {          
-                let aviao = meshes[0]      
-                aviao.scaling = new BABYLON.Vector3(5, 5, 5)
-                aviao.position.z = 6
-                aviao.position.y = 4 
-                aviao.position.x = -10
-            });
-
-            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "haunted_house.glb", scene, function (meshes) {
-                let casa = meshes[0]      
-                casa.scaling = new BABYLON.Vector3(16, 16, 16)
-                casa.position.z = 25
-                casa.position.y = 0
-                casa.position.x = -20
-            })
-
-            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "flightHelmet.glb", scene, function (meshes) {
-                let capacete = meshes[0]      
-                capacete.scaling = new BABYLON.Vector3(0.1, 0.1, 0.1)
-                capacete.position.z = -25
-                capacete.position.y = 0
-                capacete.position.x = -25
-            })
-
-            BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "alien.glb", scene, function (meshes) {
-                let bustoZombi = meshes[0]      
-                bustoZombi.scaling = new BABYLON.Vector3(2, 2, 2)
-                bustoZombi.position.z = 14
-                bustoZombi.position.y = 1.5
-                bustoZombi.position.x = 25
-            })
-
-            BABYLON.SceneLoader.ImportMesh("", "scenes/", "seagulf.glb", scene, function (meshes) {
-                let pato = meshes[0]      
-                pato.scaling = new BABYLON.Vector3(8, 8, 8)
-                pato.position.z = -10
-                pato.position.y = 0
-                pato.position.x = -36
-            })
 
             // Lights
             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
             light.intensity = 0.6;
             light.specular = BABYLON.Color3.Black();
-        
+
             var light2 = new BABYLON.DirectionalLight("dir01", new BABYLON.Vector3(0, -0.5, -1.0), scene);
             light2.position = new BABYLON.Vector3(0, 5, 5);
-        
+
             // Skybox
-            var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {size:1000}, scene);
+            var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", { size: 1000 }, scene);
             var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
             skyboxMaterial.backFaceCulling = false;
             skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox4", scene);
@@ -245,7 +108,7 @@
             skyboxMaterial.diffuseColor = BABYLON.Color3.Black()
             skyboxMaterial.specularColor = BABYLON.Color3.Black();
             skybox.material = skyboxMaterial;
-        
+
             // GUI
             var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
             var instructions = new BABYLON.GUI.TextBlock();
@@ -255,14 +118,14 @@
             instructions.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT
             instructions.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
             advancedTexture.addControl(instructions);
-        
+
             // Ground
             const largeGroundMat = new BABYLON.StandardMaterial("largeGroundMat");
             largeGroundMat.diffuseTexture = new BABYLON.Texture("https://assets.babylonjs.com/environments/valleygrass.png");
-            
-            const largeGround = BABYLON.MeshBuilder.CreateGroundFromHeightMap("largeGround", "https://assets.babylonjs.com/environments/villageheightmap.png", {width:150, height:150, subdivisions: 3, minHeight:0, maxHeight: 0});
+
+            const largeGround = BABYLON.MeshBuilder.CreateGroundFromHeightMap("largeGround", "https://assets.babylonjs.com/environments/villageheightmap.png", { width: 150, height: 150, subdivisions: 3, minHeight: 0, maxHeight: 0 });
             largeGround.material = largeGroundMat;
-        
+
             // Keyboard events
             var inputMap = {};
             scene.actionManager = new BABYLON.ActionManager(scene);
@@ -280,21 +143,21 @@
 
             // Load hero character
             BABYLON.SceneLoader.ImportMesh("", "https://assets.babylonjs.com/meshes/", "HVGirl.glb", scene, function (newMeshes, particleSystems, skeletons, animationGroups) {
-                var hero = newMeshes[0];
-        
+                hero = newMeshes[0];
+
                 //Scale the model down        
                 hero.scaling.scaleInPlace(0.05);
-        
+
                 //Lock camera on the character 
                 camera1.target = hero;
-        
+
                 //Hero character variables 
                 var heroSpeed = 0.1;
                 var heroSpeedBackwards = 0.01;
                 var heroRotationSpeed = 0.1;
-        
+
                 var animating = true;
-        
+
                 const walkAnim = scene.getAnimationGroupByName("Walking");
                 const walkBackAnim = scene.getAnimationGroupByName("WalkingBack");
                 const idleAnim = scene.getAnimationGroupByName("Idle");
@@ -303,7 +166,7 @@
                 hero.collisionsEnabled = true;
                 hero.checkCollisions = true;
                 hero.isPickable = true
-        
+
                 //Rendering loop (executed for everyframe)
                 scene.onBeforeRenderObservable.add(() => {
                     var keydown = false;
@@ -327,7 +190,7 @@
                     if (inputMap["b"]) {
                         keydown = true;
                     }
-        
+
                     //Manage animations to be played  
                     if (keydown) {
                         if (!animating) {
@@ -348,41 +211,81 @@
                         }
                     }
                     else {
-        
+
                         if (animating) {
                             //Default animation is idle when no key is down     
                             idleAnim.start(true, 1.0, idleAnim.from, idleAnim.to, false);
-        
+
                             //Stop all animations besides Idle Anim when no key is down
                             sambaAnim.stop();
                             walkAnim.stop();
                             walkBackAnim.stop();
-        
+
                             //Ensure animation are played only once per rendering loop
                             animating = false;
                         }
                     }
                 });
             });
-        
+
+            function Objetos(particula, objeto, som, x, y, z, escalaX, escalaY, escalaZ) {
+                var item
+                if(objeto === "ExplodingBarrel.glb") {
+                    item = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", objeto, scene, function (meshes) {
+                        item = meshes[0]
+                        item.scaling = new BABYLON.Vector3(escalaX, escalaY, escalaZ)
+                        item.position.x = x
+                        item.position.y = y
+                        item.position.z = z
+                    });
+                }
+                else {
+                    if (escalaX == null && escalaY == null && escalaZ == null){
+                        item = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", objeto, scene, function (meshes) {
+                            item = meshes[0]
+                            item.position.x = x
+                            item.position.y = y
+                            item.position.z = z
+                        });
+                    }
+                    else {
+                        item = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", objeto, scene, function (meshes) {
+                        item = meshes[0]
+                        item.scaling = new BABYLON.Vector3(escalaX, escalaY, escalaZ)
+                        item.position.x = x
+                        item.position.y = y
+                        item.position.z = z
+                    });
+                    }
+                }
+                item.collisionsEnabled = true
+                item.checkCollisions = true
+                item.isPickable = true
+                
+                return item
+            }
+
             return scene;
         }
-                var engine;
-                var scene;
-                initFunction = async function() {               
-                    var asyncEngineCreation = async function() {
-                        try {
-                        return createDefaultEngine();
-                        } catch(e) {
-                        console.log("the available createEngine function failed. Creating the default engine instead");
-                        return createDefaultEngine();
-                        }
-                    }
+        
+        var engine;
+        var scene;
+        initFunction = async function () {
+            var asyncEngineCreation = async function () {
+                try {
+                    return createDefaultEngine();
+                } catch (e) {
+                    console.log("the available createEngine function failed. Creating the default engine instead");
+                    return createDefaultEngine();
+                }
+            }
 
-                    engine = await asyncEngineCreation();
-        if (!engine) throw 'engine should not be null.';
-        scene = createScene();};
-        initFunction().then(() => {sceneToRender = scene        
+            engine = await asyncEngineCreation();
+            if (!engine) throw 'engine should not be null.';
+            scene = createScene();
+        };
+        initFunction().then(() => {
+            sceneToRender = scene
             engine.runRenderLoop(function () {
                 if (sceneToRender && sceneToRender.activeCamera) {
                     sceneToRender.render();
@@ -396,4 +299,5 @@
         });
     </script>
 </body>
+
 </html>
