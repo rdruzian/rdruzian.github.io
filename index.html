@@ -76,19 +76,135 @@
             
             const barrilExplosivo = "ExplodingBarrel.glb"
 
-            var barril1 = Objetos(particleSystem, hero, barrilExplosivo, explosao, 10, 0.1, 15, 0.02, 0.02, 0.02)
-            var barril2 = Objetos(particleSystem, hero, barrilExplosivo, explosao, 10, 0, 15, 0.02, 0.02, 0.02)
-            var barril3 = Objetos(particleSystem, hero, barrilExplosivo, explosao, 36, 0.3, 25, 0.02, 0.02, 0.02)
-            var barril4 = Objetos(particleSystem, hero, barrilExplosivo, explosao, 26, 0, 7, 0.02, 0.02, 0.02)
-            var barril5 = Objetos(particleSystem, hero, barrilExplosivo, explosao, 21, 0, -7, 0.02, 0.02, 0.02)
+            var barril1 = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", barrilExplosivo, scene, function (meshes) {
+                    barril1 = meshes[0]
+                    barril1.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
+                    barril1.position.x = 10
+                    barril1.position.y = 0.1
+                    barril1.position.z = 15
+                    if(hero.intersectsMesh(barril1, true)){
+                        particleSystem.emitter = new Vector3(10, 1.1, 15)
+                        explosao.play()
+                    }
+                })
+
+            var barril2 = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", barrilExplosivo, scene, function (meshes) {
+                    barril2 = meshes[0]
+                    barril2.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
+                    barril2.position.x = 10
+                    barril2.position.y = 0
+                    barril2.position.z = 15
+                    if(hero.intersectsMesh(barril2, true)){
+                        particleSystem.emitter = new Vector3(10, 1, 15)
+                        explosao.play()
+                    }
+                })
+
+            var barril3 = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", barrilExplosivo, scene, function (meshes) {
+                    barril3 = meshes[0]
+                    barril3.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
+                    barril3.position.x = 36
+                    barril3.position.y = 0.3
+                    barril3.position.z = 25
+                    if(hero.intersectsMesh(barril3, true)){
+                        particleSystem.emitter = new Vector3(36, 1.3, 25)
+                        explosao.play()
+                    }
+                })
+
+            var barril4 = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", barrilExplosivo, scene, function (meshes) {
+                    barril4 = meshes[0]
+                    barril4.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
+                    barril4.position.x = 26
+                    barril4.position.y = 0
+                    barril4.position.z = 7
+                    if(hero.intersectsMesh(barril4, true)){
+                        particleSystem.emitter = new Vector3(26, 1, 7)
+                        explosao.play()
+                    }
+                })
+
+            var barril5 = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", barrilExplosivo, scene, function (meshes) {
+                    barril5 = meshes[0]
+                    barril5.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02)
+                    barril5.position.x = 21
+                    barril5.position.y = 0
+                    barril5.position.z = -7
+                    if(hero.intersectsMesh(barril5, true)){
+                        particleSystem.emitter = new Vector3(10, 1.1, 15)
+                        explosao.play()
+                    }
+                })
             
-            let disco = Objetos (null, hero, moeda, "ufo.glb", 1, 3, 25, null, null, null)
-            let dragao = Objetos (null, hero, moeda, "shark.glb", 2, 0.4, -25, 0.2, 0.2, 0.2)
-            let aviao = Objetos (null, hero, moeda, "aerobatic_plane.glb", 6, 4, -10, 5, 5, 5)
-            let casa = Objetos (null, hero, moeda, "haunted_house.glb", 25, 0, -20, 16, 16, 16)
-            let capacete = Objetos (null, hero, moeda, "flightHelmet.glb", -25, 0, -25, 0.1, 0.1, 0.1)
-            let bustoZumbi = Objetos(null, hero, moeda, "alien.glb", 14, 1.5, 25, 2, 2, 2)
-            let pato = Objetos (null, hero, moeda, "seagulf.glb", -10, 1, -36, 0.001, 0.001, 0.001)            
+            let disco = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "ufo.glb", scene, function (meshes) {
+                    disco = meshes[0]
+                    disco.position.x = 1
+                    disco.position.y = 3
+                    disco.position.z = 25
+                    if(hero.intersectsMesh(disco, true)){
+                        moeda.play()
+                    }
+                })
+            let dragao = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "shark.glb", scene, function (meshes) {
+                    dragao = meshes[0]
+                    dragao.scaling = new BABYLON.Vector3(0.2, 0.2, 0.2)
+                    dragao.position.x = 2
+                    dragao.position.y = 0.4
+                    dragao.position.z = 25
+                    if(hero.intersectsMesh(dragao, true)){
+                        moeda.play()
+                    }
+                })
+            let aviao = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "aerobatic_plane.glb", scene, function (meshes) {
+                    aviao = meshes[0]
+                    aviao.scaling = new BABYLON.Vector3(5, 5, 5)
+                    aviao.position.x = 6
+                    aviao.position.y = 4
+                    aviao.position.z = -10
+                    if(hero.intersectsMesh(aviao, true)){
+                        moeda.play()
+                    }
+                })
+            let casa = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "haunted_house.glb", scene, function (meshes) {
+                    casa = meshes[0]
+                    casa.scaling = new BABYLON.Vector3(16, 16, 16)
+                    casa.position.x = 25
+                    casa.position.y = 0
+                    casa.position.z = -20
+                    if(hero.intersectsMesh(casa, true)){
+                        moeda.play()
+                    }
+                })
+            let capacete = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "flightHelmet.glb", scene, function (meshes) {
+                    capacete = meshes[0]
+                    capacete.scaling = new BABYLON.Vector3(0.1, 0.1, 0.1)
+                    capacete.position.x = -25
+                    capacete.position.y = 0
+                    capacete.position.z = -25
+                    if(hero.intersectsMesh(capacete, true)){
+                        moeda.play()
+                    }
+                })
+            let bustoZumbi = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "alien.glb", scene, function (meshes) {
+                    capacete = meshes[0]
+                    capacete.scaling = new BABYLON.Vector3(2, 2, 2)
+                    capacete.position.x = 14
+                    capacete.position.y = 1.5
+                    capacete.position.z = 25
+                    if(hero.intersectsMesh(capacete, true)){
+                        moeda.play()
+                    }
+                })
+            let pato = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", "seagulf.glb", scene, function (meshes) {
+                    capacete = meshes[0]
+                    capacete.scaling = new BABYLON.Vector3(0.001, 0.001, 0.001)
+                    capacete.position.x = -10
+                    capacete.position.y = 1
+                    capacete.position.z = -36
+                    if(hero.intersectsMesh(capacete, true)){
+                        moeda.play()
+                    }
+                })          
 
             // Lights
             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
@@ -130,7 +246,7 @@
             const largeGroundMat = new BABYLON.StandardMaterial("largeGroundMat");
             largeGroundMat.diffuseTexture = new BABYLON.Texture("https://assets.babylonjs.com/environments/valleygrass.png");
 
-            const largeGround = BABYLON.MeshBuilder.CreateGroundFromHeightMap("largeGround", "https://assets.babylonjs.com/environments/villageheightmap.png", { width: 150, height: 150, subdivisions: 3, minHeight: 0, maxHeight: 0 });
+            const largeGround = BABYLON.MeshBuilder.CreateGroundFromHeightMap("largeGround", "textures/circulo.png", { width: 150, height: 150, subdivisions: 3, minHeight: 0, maxHeight: 0 });
             largeGround.material = largeGroundMat;
 
             // Keyboard events
@@ -234,53 +350,6 @@
                     }
                 });
             });
-
-            
-
-            function Objetos(particula, hero, som, objeto, x, y, z, escalaX, escalaY, escalaZ) {
-                var item = null
-                if(objeto === "ExplodingBarrel.glb") {
-                    item = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", objeto, scene, function (meshes) {
-                        item = meshes[0]
-                            item.scaling = new BABYLON.Vector3(escalaX, escalaY, escalaZ)
-                            item.position.x = x
-                            item.position.y = y
-                            item.position.z = z
-                            if(hero.intersectsMesh(item, true)){
-                                particula.emitter = new Vector3(x, y+1, z)
-                                som.play()
-                            }
-                        });
-                }
-                else {
-                    if (escalaX == null && escalaY == null && escalaZ == null){
-                        item = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", objeto, scene, function (meshes) {
-                            item = meshes[0]
-                            item.position.x = x
-                            item.position.y = y
-                            item.position.z = z
-                        });
-                    }
-                    else {
-                        item = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", objeto, scene, function (meshes) {
-                            item = meshes[0]
-                            item.scaling = new BABYLON.Vector3(escalaX, escalaY, escalaZ)
-                            item.position.x = x
-                            item.position.y = y
-                            item.position.z = z
-                        });
-                    }
-                    if(hero.intersectsMesh(item, true)){
-                        som.play()
-                    }
-                }
-                
-                item.collisionsEnabled = true
-                item.checkCollisions = true
-                item.isPickable = true
-
-                return item
-            }
 
             return scene;
         }
