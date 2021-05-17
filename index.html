@@ -72,22 +72,23 @@
             particleSystem.targetStopDuration = 2
 
             var explosao = new BABYLON.Sound("Explosao", "assets/explosao.wav", scene)
+            var moeda = new BABYLON.Sound("Moeda", "assets/moeda.mp3", scene)
             
             const barrilExplosivo = "ExplodingBarrel.glb"
 
-            var barril1 = Objetos(barrilExplosivo, 10, 0.1, 15, 0.02, 0.02, 0.02, hero)
-            var barril2 = Objetos(barrilExplosivo, 10, 0, 15, 0.02, 0.02, 0.02, hero)
-            var barril3 = Objetos(barrilExplosivo, 36, 0.3, 25, 0.02, 0.02, 0.02, hero)
-            var barril4 = Objetos(barrilExplosivo, 26, 0, 7, 0.02, 0.02, 0.02, hero)
-            var barril5 = Objetos(barrilExplosivo, 21, 0, -7, 0.02, 0.02, 0.02, hero)
+            var barril1 = Objetos(particleSystem, hero, barrilExplosivo, explosao, 10, 0.1, 15, 0.02, 0.02, 0.02)
+            var barril2 = Objetos(particleSystem, hero, barrilExplosivo, explosao, 10, 0, 15, 0.02, 0.02, 0.02)
+            var barril3 = Objetos(particleSystem, hero, barrilExplosivo, explosao, 36, 0.3, 25, 0.02, 0.02, 0.02)
+            var barril4 = Objetos(particleSystem, hero, barrilExplosivo, explosao, 26, 0, 7, 0.02, 0.02, 0.02)
+            var barril5 = Objetos(particleSystem, hero, barrilExplosivo, explosao, 21, 0, -7, 0.02, 0.02, 0.02)
             
-            let disco = Objetos("ufo.glb", 1, 3, 25, null, null, null)
-            let dragao = Objetos("shark.glb", 2, 0.4, -25, 0.2, 0.2, 0.2)
-            let aviao = Objetos("aerobatic_plane.glb", 6, 4, -10, 5, 5, 5)
-            let casa = Objetos("haunted_house.glb", 25, 0, -20, 16, 16, 16)
-            let capacete = Objetos("flightHelmet.glb", -25, 0, -25, 0.1, 0.1, 0.1)
-            let bustoZumbi = Objetos("alien.glb", 14, 1.5, 25, 2, 2, 2)
-            let pato = Objetos("seagulf.glb", -10, 1, -36, 0.001, 0.001, 0.001)            
+            let disco = Objetos (null, hero, moeda, "ufo.glb", 1, 3, 25, null, null, null)
+            let dragao = Objetos (null, hero, moeda, "shark.glb", 2, 0.4, -25, 0.2, 0.2, 0.2)
+            let aviao = Objetos (null, hero, moeda, "aerobatic_plane.glb", 6, 4, -10, 5, 5, 5)
+            let casa = Objetos (null, hero, moeda, "haunted_house.glb", 25, 0, -20, 16, 16, 16)
+            let capacete = Objetos (null, hero, moeda, "flightHelmet.glb", -25, 0, -25, 0.1, 0.1, 0.1)
+            let bustoZumbi = Objetos(null, hero, moeda, "alien.glb", 14, 1.5, 25, 2, 2, 2)
+            let pato = Objetos (null, hero, moeda, "seagulf.glb", -10, 1, -36, 0.001, 0.001, 0.001)            
 
             // Lights
             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
@@ -236,8 +237,8 @@
 
             
 
-            function Objetos(objeto, x, y, z, escalaX, escalaY, escalaZ, hero) {
-                var item
+            function Objetos(particula, hero, som, objeto, x, y, z, escalaX, escalaY, escalaZ) {
+                var item = null
                 if(objeto === "ExplodingBarrel.glb") {
                     item = BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/", objeto, scene, function (meshes) {
                         item = meshes[0]
@@ -245,10 +246,10 @@
                             item.position.x = x
                             item.position.y = y
                             item.position.z = z
-                            // if(item.intersectsMesh(hero, true)){
-                            //     particula.emitter = item
-                            //     explosao.play()
-                            // }
+                            if(hero.intersectsMesh(item, true)){
+                                particula.emitter = new Vector3(x, y+1, z)
+                                som.play()
+                            }
                         });
                 }
                 else {
@@ -268,6 +269,9 @@
                             item.position.y = y
                             item.position.z = z
                         });
+                    }
+                    if(hero.intersectsMesh(item, true)){
+                        som.play()
                     }
                 }
                 
