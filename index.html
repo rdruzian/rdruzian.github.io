@@ -85,6 +85,7 @@
                     barril1.collisionsEnabled = true
                     barril1.checkCollisions = true
                     if(hero.intersectsMesh(barril1, true)){
+                        particleSystem.start()
                         particleSystem.emitter = new Vector3(10, 1.1, 15)
                         explosao.play()
                     }
@@ -97,8 +98,9 @@
                     barril2.position.y = 0
                     barril2.position.z = 15
                     barril2.collisionsEnabled = true
-                    barril2.checkCollisions = true
+                    barril2.checkCollisions = true  
                     if(hero.intersectsMesh(barril2, true)){
+                        particleSystem.start()
                         particleSystem.emitter = new Vector3(10, 1, 15)
                         explosao.play()
                     }
@@ -111,8 +113,9 @@
                     barril3.position.y = 0.3
                     barril3.position.z = 25
                     barril3.collisionsEnabled = true
-                    barril3.checkCollisions = true
+                    barril3.checkCollisions = true  
                     if(hero.intersectsMesh(barril3, true)){
+                        particleSystem.start()
                         particleSystem.emitter = new Vector3(36, 1.3, 25)
                         explosao.play()
                     }
@@ -125,8 +128,9 @@
                     barril4.position.y = 0
                     barril4.position.z = 7
                     barril4.collisionsEnabled = true
-                    barril4.checkCollisions = true
+                    barril4.checkCollisions = true  
                     if(hero.intersectsMesh(barril4, true)){
+                        particleSystem.start()
                         particleSystem.emitter = new Vector3(26, 1, 7)
                         explosao.play()
                     }
@@ -139,8 +143,9 @@
                     barril5.position.y = 0
                     barril5.position.z = -7
                     barril5.collisionsEnabled = true
-                    barril5.checkCollisions = true
+                    barril5.checkCollisions = true  
                     if(hero.intersectsMesh(barril5, true)){
+                        particleSystem.start()
                         particleSystem.emitter = new Vector3(10, 1.1, 15)
                         explosao.play()
                     }
